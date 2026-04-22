@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake News Detector</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #fceabb, #f8b500);
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #232f3e;
+            color: white;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #f8b500;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #f8b500;
+            border-radius: 8px;
+            resize: vertical;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            font-size: 18px;
+            background-color: #f8b500;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e09e00;
+        }
+        .result {
+            margin-top: 30px;
+            font-size: 20px;
+            text-align: center;
+            color: #232f3e;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">📰 Fake News Detector</div>
+    <div class="container">
+        <h1>Check the Truth Behind the Headlines</h1>
+        <form method="POST">
+            <textarea name="news" placeholder="Paste your news text here...">{{ input_text }}</textarea>
+            <button type="submit">🔍 Predict</button>
+        </form>
+
+        {% if prediction is not none %}
+        <div class="result">
+            <strong>Prediction:</strong> {{ 'FAKE' if prediction == 1 else 'REAL' }}<br>
+            {% if probability is not none %}
+            <strong>Confidence:</strong> {{ '%.2f'|format(probability * 100) }}%
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="footer">Made with ❤️ </div>
+</body>
+</html>
