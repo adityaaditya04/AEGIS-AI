@@ -11,7 +11,8 @@ Run locally:
 The app loads the model via `backend.classifier.classifier_singleton`.
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
+import os
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging
@@ -109,6 +110,30 @@ def set_threshold(payload: ThresholdIn):
     should protect this endpoint with authentication and consider safer
     configuration methods.
     """
+    # Optional admin token protection. If `ADMIN_TOKEN` is set in the
+    # environment, callers must provide the same value in the
+    # `X-Admin-Token` header.
+    admin_token_env = os.getenv("ADMIN_TOKEN")
+    # read header if present
+    request_token = None
+    try:
+        # fastapi will inject header when function signature includes it,
+        # but to keep backwards compatibility we read it from globals if available
+        request_token = Header(None, alias="X-Admin-Token")
+    except Exception:
+        request_token = None
+
+    # If an ADMIN_TOKEN is configured, enforce it
+    if admin_token_env:
+        from fastapi import Depends
+
+        def _require_token(x_token: str = Header(None, alias="X-Admin-Token")):
+            if not x_token or x_token != admin_token_env:
+                raise HTTPException(status_code=403, detail="Invalid or missing admin token")
+
+        # perform token check
+        _require_token()
+
     val = float(payload.threshold)
     if val < 0.0 or val > 1.0:
         raise HTTPException(status_code=400, detail="threshold must be between 0 and 1")
