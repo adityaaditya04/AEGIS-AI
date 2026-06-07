@@ -51,6 +51,12 @@ python web_app\app.py
 # open http://127.0.0.1:3000
 ```
 
+CI
+ - ![CI](https://github.com/adityaaditya04/AEGIS-AI/actions/workflows/ci.yml/badge.svg)
+
+Admin endpoint protection
+ - You can protect the runtime admin endpoint `POST /admin/threshold` by setting an environment variable `ADMIN_TOKEN` before starting the FastAPI server. When `ADMIN_TOKEN` is set, include the header `X-Admin-Token: <value>` in requests to `/admin/threshold`.
+
 Development notes
 - Adjust classifier threshold at runtime (dev): `POST /admin/threshold` with JSON `{ "threshold": 0.95 }`.
 - Diagnostics: `python src/diagnose_model.py` shows false positives and feature contributions.
