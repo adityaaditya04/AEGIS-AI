@@ -1,5 +1,7 @@
 # Aegis AI
 
+Repository: https://github.com/adityaaditya04/AEGIS-AI
+
 GenAI Firewall (Aegis AI) — a prompt-injection detector and proxy ("bouncer") that sits between a web chat UI and an LLM API.
 
 Features
@@ -54,7 +56,7 @@ Development notes
 - Diagnostics: `python src/diagnose_model.py` shows false positives and feature contributions.
 - Tests: `pytest -q`
 
-Repository name suggestion: `Aegis AI` (you can create a GitHub repo with that name and push the code there).
+Repository: https://github.com/adityaaditya04/AEGIS-AI
 
 License
 - Add an appropriate LICENSE file if you plan to release this publicly.
