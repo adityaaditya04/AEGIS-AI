@@ -1,0 +1,22 @@
+name: CI - Smoke
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Quick smoke checks
+        run: |
+          python -V
+          python -c "import sys; print('OK', sys.executable)"
+          echo "SMOKE-CHECK-PASSED"
