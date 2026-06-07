@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GenAI Firewall - Chat</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>GenAI Firewall</h1>
+      <p>Protected chat UI (local demo)</p>
+    </header>
+
+    <main>
+      <div id="chat">
+        <div id="messages"></div>
+        <form id="promptForm">
+          <textarea id="promptInput" placeholder="Type your message..." rows="3"></textarea>
+          <div class="controls">
+            <button type="submit" id="sendBtn">Send</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <small>GenAI Firewall — prompt-injection detector proxy</small>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
